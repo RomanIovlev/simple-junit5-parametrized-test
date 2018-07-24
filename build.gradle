@@ -44,19 +44,6 @@ test.reports.getHtml().enabled = true
 group 'simple.tests'
 version '1.0.0-SNAPSHOT'
 
-task unitTest(type: Test) {
-    useJUnit{
-        include 'com.adidas.fct.be.tests.FCTServiceServiceTests'
-    }
-}
-/*
-task jtest(type: Test) {
-    systemProperties System.getProperties()
-    reports.getHtml().enabled = true
-    testLogging.showStandardStreams = true
-    reports.junitXml.enabled= true
-    include 'com.adidas.fct.be.tests.FCTServiceServiceTests.class'
-}*/
 
 task wrapper(type: Wrapper) {
     gradleVersion = '3.2.1'
