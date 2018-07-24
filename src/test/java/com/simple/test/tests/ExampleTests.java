@@ -13,7 +13,7 @@ public class ExampleTests {
         System.out.println("==== TESTS =====");
     }
 
-    @ParameterizedTest(name = "Enrich product for Rule1: Model, Material Way and Factory combination present in previous season. ProductId: {arguments}")
+    @ParameterizedTest(name = "Some test: {arguments}")
     @MethodSource("DataProvider#rule1")
     public void paramTest(String productId, int num) {
         System.out.println("==== PARMETRIZED =====" + productId);
