@@ -1,0 +1,64 @@
+buildscript {
+    repositories {
+        maven {
+            url "http://central.maven.org/maven2"
+        }
+        jcenter()
+    }
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:1.4.0")
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.5.1"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'net.serenity-bdd.aggregator'
+
+repositories {
+    // Use 'jcenter' for resolving your dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+    maven {
+        url "http://central.maven.org/maven2/"
+    }
+}
+
+dependencies {
+    compile ('net.serenity-bdd:serenity-core:1.1.42',
+            'net.serenity-bdd:serenity-junit:1.1.42',
+            'net.serenity-bdd:serenity-cucumber:1.1.34',
+            'net.serenity-bdd:serenity-rest-assured:1.4.0',
+            'com.epam.jdi.tools:jdi-light-saber:+',
+    )
+    testCompile (
+        "org.junit.jupiter:junit-jupiter-api:+",
+        "org.junit.jupiter:junit-jupiter-params:+",
+        "org.junit.jupiter:junit-jupiter-engine:+",
+    )
+
+}
+// Allow build to continue on test failure
+gradle.startParameter.continueOnFailure = true
+
+test.reports.getHtml().enabled = true
+group 'simple.tests'
+version '1.0.0-SNAPSHOT'
+
+task unitTest(type: Test) {
+    useJUnit{
+        include 'com.adidas.fct.be.tests.FCTServiceServiceTests'
+    }
+}
+/*
+task jtest(type: Test) {
+    systemProperties System.getProperties()
+    reports.getHtml().enabled = true
+    testLogging.showStandardStreams = true
+    reports.junitXml.enabled= true
+    include 'com.adidas.fct.be.tests.FCTServiceServiceTests.class'
+}*/
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.2.1'
+}
+test.finalizedBy(aggregate)
